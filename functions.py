@@ -1,7 +1,6 @@
 import os
 import json
 import io
-import pytesseract
 import PyPDF2
 import openpyxl
 import pandas as pd
@@ -38,15 +37,6 @@ def pdf_to_text(file):
         text_of_pdf += page.extract_text() + "\n"
 
     return text_of_pdf
-
-def image_to_text(file):
-
-    contents = file.read()
-    pil_image = Image.open(io.BytesIO(contents))
-    # Simple image to string
-    text_of_image = pytesseract.image_to_string(pil_image)
-
-    return text_of_image
 
 def file_to_text(file):
 
