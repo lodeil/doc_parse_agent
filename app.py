@@ -2,32 +2,35 @@ import os
 import json
 import io
 import streamlit as st
-
-
+from functions import *
 
 # Config :
 # To launch : streamlit run app.py
+# If you don't have tesseract executable in your PATH, include ytesseract.pytesseract.tesseract_cmd
+
 
 st.set_page_config(
-    page_title="Project :",
+    page_title="Documents to text",
     page_icon="🌠",
 )
-
-st.title("🌳 Step 1 ")
+st.header("")
+st.title("🌳 Parse your documents ")
 st.header("")
 
 with st.expander("ℹ️ - Information on this app", expanded=True):
 
     st.write(
         """     
+-   The *Documents to text* is an easy-to-use interface for parsing a document
 -   It build to be easy to use with nominal performance 
 	    """
     )
 
     st.markdown("")
 
-st.markdown("")
-st.markdown("🌌 Step 2 ")
+st.header("")
+st.markdown("🌌 Select your files ")
+st.header("")
 
 with st.form(key="my_form"):
 
@@ -35,34 +38,32 @@ with st.form(key="my_form"):
 
     with c30:
 
+
         files = st.file_uploader(
             "",
             key="1",
-            help="",
+            help="To activate 'wide mode', go to the hamburger menu > Settings > turn on 'wide mode'",
             accept_multiple_files=True
         )
 
-        if files is None:
-            st.info(
+        st.info(
                 f"""
-                    👆 Upload a file file first. Sample to try: [trees.csv](https://people.sc.fsu.edu/~jburkardt/data/csv/trees.csv)
+                    👆 Upload a file first. Here is a sample to try: [trees.csv](https://people.sc.fsu.edu/~jburkardt/data/csv/trees.csv)
                     """
             )
 
-        submit_button = st.form_submit_button(label="🧾 Get me the data!")
+        submit_button = st.form_submit_button(label="🧾 Parse it all !")
 
 
 if not submit_button:
     st.stop()
 
-st.markdown("🌲 Step 3 ")
+st.markdown("🌲 Your files as a text ")
 
-st.latex(r'''
-     a + ar + a r^2 + a r^3 + \cdots + a r^{n-1} =
-     \sum_{k=0}^{n-1} ar^k =
-     a \left(\frac{1-r^{n}}{1-r}\right)
-     ''')
+text_of_files = files_to_text(files=files)
 
-st.markdown("🌼 Step 4 ")
+st.text(
+    text_of_files
+    )
 
-st.metric(label="Temperature", value="70 °F", delta="1.2 °F")
+st.markdown("🌼 The end 🌼")

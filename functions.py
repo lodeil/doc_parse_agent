@@ -1,0 +1,102 @@
+import os
+import json
+import io
+import pandas as pd
+import streamlit as st
+import numpy as np
+from xml.etree import ElementTree
+import pytesseract
+import PyPDF2
+import openpyxl
+from PIL import Image
+
+
+def csv_to_text(file):
+
+    return file.getvalue().decode("utf-8")
+
+def txt_to_text(file):
+
+    return file.getvalue().decode("utf-8")
+
+def xml_to_text(file):
+
+    # in case the file was read before, we set the reader to the begining
+    file.seek(0) 
+    xml = ElementTree.fromstring( file.read() )
+    xml_str = ElementTree.tostring(xml, encoding='unicode')
+
+    return xml_str
+
+def pdf_to_text(file):
+
+    pdfR=PyPDF2.PdfFileReader(file)
+    text_of_pdf = ""
+
+    for page in pdfR.pages:
+        text_of_pdf += page.extract_text() + "\n"
+
+    return text_of_pdf
+
+def image_to_text(file):
+
+    contents = file.read()
+    pil_image = Image.open(io.BytesIO(contents))
+    # Simple image to string
+    text_of_image = pytesseract.image_to_string(pil_image)
+
+    return text_of_image
+
+def file_to_text(file):
+
+    extention = file.name.split('.')[-1]
+    file_as_text = ""
+
+    if "csv" in extention  :
+        file_as_text = csv_to_text(file=file)
+    elif "xlsx" in extention or "xls" in extention:
+        file_as_text = xls_to_csv(file=file)
+    elif "pdf" in extention:
+        file_as_text = pdf_to_text(file=file)
+    elif "txt" in extention:
+        file_as_text = txt_to_text(file=file)
+    elif "xml" in extention:
+        file_as_text = xml_to_text(file=file)
+    elif "jpg" in extention or "png" in extention or "jpeg" in extention or "svg" in extention or "webp" in extention :
+        file_as_text = image_to_text(file=file)
+    else:
+        file_as_text = f"🐛 : Not a supported type of file : { extention } "
+
+    return file_as_text
+
+def files_to_text(files):
+
+    def file_separator(number_of_file,name_of_file):
+        return f"\n\n|-||-| 🐛 : File 📋 N° {number_of_file+1} : {name_of_file} |-||-|\n\n"
+    
+    files_as_text = ""
+    if len(files) == 0:
+        return "\n\n 🐛 : No file 📋 detected ⁉️ \n\n"
+
+    for number_of_file in range(len(files)):
+        file = files[number_of_file]
+        name_of_file = file.name
+        file_separator_text = file_separator(number_of_file=number_of_file,name_of_file=name_of_file)
+        files_as_text += file_separator_text + file_to_text(file)
+    
+    return files_as_text
+
+def xls_to_csv(file):
+
+    bytes_in = io.BytesIO(file.read())
+    wb = openpyxl.load_workbook(bytes_in)
+    text_of_xls = ""
+
+    for sheet in wb:
+        text_of_xls += sheet.title + "\n\n"
+        for row in sheet.rows:
+            for cell in row:
+                text_of_xls += str(cell.value) + " "
+            text_of_xls += "\n"
+        
+    return text_of_xls
