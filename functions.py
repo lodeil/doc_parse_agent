@@ -1,13 +1,14 @@
 import os
 import json
 import io
+import pytesseract
+import PyPDF2
+import openpyxl
 import pandas as pd
 import streamlit as st
 import numpy as np
 from xml.etree import ElementTree
-import pytesseract
-import PyPDF2
-import openpyxl
+
 from PIL import Image
 
 

@@ -2,6 +2,9 @@ import os
 import json
 import io
 import streamlit as st
+import pytesseract
+import PyPDF2
+import openpyxl
 from functions import *
 
 # Config :
