@@ -1,3 +1,4 @@
+sudo -H pip3 install PyPDF2
 tesseract-ocr
 tesseract-ocr-fra
 tesseract-ocr-epo
