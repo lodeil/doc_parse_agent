@@ -4,9 +4,9 @@ import io
 # import PyPDF2
 # from openpyxl import load_workbook
 # import pytesseract
-import pandas as pd
-import streamlit as st
-import numpy as np
+# import pandas as pd
+# import streamlit as st
+# import numpy as np
 from xml.etree import ElementTree
 
 # from PIL import Image
