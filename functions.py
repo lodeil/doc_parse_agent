@@ -2,7 +2,7 @@ import os
 import json
 import io
 # import PyPDF2
-# from openpyxl import load_workbook
+from openpyxl import load_workbook
 # import pytesseract
 # import pandas as pd
 # import streamlit as st
@@ -54,8 +54,8 @@ def file_to_text(file):
 
     if "csv" in extention  :
         file_as_text = csv_to_text(file=file)
-    # elif "xlsx" in extention or "xls" in extention:
-    #     file_as_text = xls_to_csv(file=file)
+    elif "xlsx" in extention or "xls" in extention:
+        file_as_text = xls_to_csv(file=file)
     # elif "pdf" in extention:
     #     file_as_text = pdf_to_text(file=file)
     elif "txt" in extention:
@@ -86,20 +86,20 @@ def files_to_text(files):
     
     return files_as_text
 
-# def xls_to_csv(file):
+def xls_to_csv(file):
 
-#     bytes_in = io.BytesIO(file.read())
-#     wb = load_workbook(bytes_in)
-#     text_of_xls = ""
+    bytes_in = io.BytesIO(file.read())
+    wb = load_workbook(bytes_in)
+    text_of_xls = ""
 
-#     for sheet in wb:
-#         text_of_xls += sheet.title + "\n\n"
-#         for row in sheet.rows:
-#             for cell in row:
-#                 text_of_xls += str(cell.value) + " "
-#             text_of_xls += "\n"
+    for sheet in wb:
+        text_of_xls += sheet.title + "\n\n"
+        for row in sheet.rows:
+            for cell in row:
+                text_of_xls += str(cell.value) + " "
+            text_of_xls += "\n"
         
-#     return text_of_xls
+    return text_of_xls
 
 def image_to_text(file):
 
