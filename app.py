@@ -1,3 +1,6 @@
+#!/bin/sh tesseract --version && tesseract --list-langs
+
+
 import os
 import json
 import io
