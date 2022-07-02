@@ -9,7 +9,7 @@ import streamlit as st
 import numpy as np
 from xml.etree import ElementTree
 
-from PIL import Image
+# from PIL import Image
 
 
 
