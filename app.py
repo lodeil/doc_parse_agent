@@ -2,15 +2,17 @@ import os
 import json
 import io
 import streamlit as st
+
+
+
+# Config :
+# To launch : streamlit run app.py
+# If you don't have tesseract executable in your PATH, include the following:
+pytesseract.pytesseract.tesseract_cmd = r'D:\\softwares\\Tesseract-OCR\\tesseract.exe'
 import pytesseract
 import PyPDF2
 import openpyxl
 from functions import *
-
-# Config :
-# To launch : streamlit run app.py
-# If you don't have tesseract executable in your PATH, include ytesseract.pytesseract.tesseract_cmd
-pytesseract.pytesseract.tesseract_cmd = r"C:\Program Files\Tesseract-OCR\tesseract.exe"
 
 st.set_page_config(
     page_title="Documents to text",
