@@ -15,7 +15,7 @@ st.set_page_config(
     page_icon="🌠",
 )
 st.header("")
-st.title("🌳 Parse your documents ")
+st.title("🌳 Parse your 📃 documents 📃. 🌳")
 st.header("")
 
 with st.expander("ℹ️ - Information on this app", expanded=True):
@@ -24,7 +24,8 @@ with st.expander("ℹ️ - Information on this app", expanded=True):
         """     
 -   The *Documents to text* is an easy-to-use interface for parsing a document
 -   It build to be easy to use with nominal performance 
-	    """
+-   Document types :  csv , xlsx , xls , pdf , txt , xml , jpg , jpeg
+    """
     )
 
     st.markdown("")
@@ -59,7 +60,7 @@ with st.form(key="my_form"):
 if not submit_button:
     st.stop()
 
-st.markdown("🌲 Your files as a text ")
+st.markdown("🍂 Your files as a text 🍂")
 
 text_of_files = files_to_text(files=files)
 
