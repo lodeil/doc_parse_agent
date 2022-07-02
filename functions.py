@@ -1,7 +1,7 @@
 import os
 import json
 import io
-# import PyPDF2
+import PyPDF2
 from openpyxl import load_workbook
 # import pytesseract
 # import pandas as pd
@@ -32,20 +32,20 @@ def xml_to_text(file):
 
     return xml_str
 
-# def pdf_to_text(file):
-#     # pdfR=PyPDF2.PdfFileReader(file)
-#     # text_of_pdf = ""
+def pdf_to_text(file):
+    pdfR=PyPDF2.PdfFileReader(file)
+    text_of_pdf = ""
 
-#     # for page in pdfR.pages:
-#     #     text_of_pdf += page.extract_text() + "\n"
+    for page in pdfR.pages:
+        text_of_pdf += page.extract_text() + "\n"
 
-#     # return text_of_pdf
-#     import fitz
-#     doc = fitz.open("pdf", file)
-#     for page in doc:
-#         text_of_pdf += page.get_text() + "\n"
+    # return text_of_pdf
+    # import fitz
+    # doc = fitz.open("pdf", file)
+    # for page in doc:
+    #     text_of_pdf += page.get_text() + "\n"
 
-#     return text_of_pdf
+    return text_of_pdf
 
 def file_to_text(file):
 
@@ -56,8 +56,8 @@ def file_to_text(file):
         file_as_text = csv_to_text(file=file)
     elif "xlsx" in extention or "xls" in extention:
         file_as_text = xls_to_csv(file=file)
-    # elif "pdf" in extention:
-    #     file_as_text = pdf_to_text(file=file)
+    elif "pdf" in extention:
+        file_as_text = pdf_to_text(file=file)
     elif "txt" in extention:
         file_as_text = txt_to_text(file=file)
     elif "xml" in extention:
