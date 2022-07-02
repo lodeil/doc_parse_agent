@@ -3,6 +3,7 @@ import json
 import io
 import PyPDF2
 import openpyxl
+# import pytesseract
 import pandas as pd
 import streamlit as st
 import numpy as np
