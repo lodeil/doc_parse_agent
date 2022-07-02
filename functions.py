@@ -1,8 +1,8 @@
 import os
 import json
 import io
-import PyPDF2
-import openpyxl
+# import PyPDF2
+# from openpyxl import load_workbook
 # import pytesseract
 import pandas as pd
 import streamlit as st
@@ -10,6 +10,9 @@ import numpy as np
 from xml.etree import ElementTree
 
 from PIL import Image
+
+
+
 
 
 def csv_to_text(file):
@@ -29,15 +32,20 @@ def xml_to_text(file):
 
     return xml_str
 
-def pdf_to_text(file):
+# def pdf_to_text(file):
+#     # pdfR=PyPDF2.PdfFileReader(file)
+#     # text_of_pdf = ""
 
-    pdfR=PyPDF2.PdfFileReader(file)
-    text_of_pdf = ""
+#     # for page in pdfR.pages:
+#     #     text_of_pdf += page.extract_text() + "\n"
 
-    for page in pdfR.pages:
-        text_of_pdf += page.extract_text() + "\n"
+#     # return text_of_pdf
+#     import fitz
+#     doc = fitz.open("pdf", file)
+#     for page in doc:
+#         text_of_pdf += page.get_text() + "\n"
 
-    return text_of_pdf
+#     return text_of_pdf
 
 def file_to_text(file):
 
@@ -46,10 +54,10 @@ def file_to_text(file):
 
     if "csv" in extention  :
         file_as_text = csv_to_text(file=file)
-    elif "xlsx" in extention or "xls" in extention:
-        file_as_text = xls_to_csv(file=file)
-    elif "pdf" in extention:
-        file_as_text = pdf_to_text(file=file)
+    # elif "xlsx" in extention or "xls" in extention:
+    #     file_as_text = xls_to_csv(file=file)
+    # elif "pdf" in extention:
+    #     file_as_text = pdf_to_text(file=file)
     elif "txt" in extention:
         file_as_text = txt_to_text(file=file)
     elif "xml" in extention:
@@ -78,20 +86,20 @@ def files_to_text(files):
     
     return files_as_text
 
-def xls_to_csv(file):
+# def xls_to_csv(file):
 
-    bytes_in = io.BytesIO(file.read())
-    wb = openpyxl.load_workbook(bytes_in)
-    text_of_xls = ""
+#     bytes_in = io.BytesIO(file.read())
+#     wb = load_workbook(bytes_in)
+#     text_of_xls = ""
 
-    for sheet in wb:
-        text_of_xls += sheet.title + "\n\n"
-        for row in sheet.rows:
-            for cell in row:
-                text_of_xls += str(cell.value) + " "
-            text_of_xls += "\n"
+#     for sheet in wb:
+#         text_of_xls += sheet.title + "\n\n"
+#         for row in sheet.rows:
+#             for cell in row:
+#                 text_of_xls += str(cell.value) + " "
+#             text_of_xls += "\n"
         
-    return text_of_xls
+#     return text_of_xls
 
 def image_to_text(file):
 

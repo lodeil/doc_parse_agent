@@ -3,7 +3,7 @@ import json
 import io
 import streamlit as st
 # import pytesseract
-import openpyxl
+# import openpyxl
 from functions import *
 
 
