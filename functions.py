@@ -8,12 +8,30 @@ from openpyxl import load_workbook
 # import streamlit as st
 import numpy as np
 from xml.etree import ElementTree
-import easyocr as ocr  # OCR
+import easyocr as ocr
 from PIL import Image
 
+def file_to_text(file):
 
+    extention = file.name.split('.')[-1]
+    file_as_text = ""
 
+    if "csv" in extention  :
+        file_as_text = csv_to_text(file=file)
+    elif "xlsx" in extention or "xls" in extention:
+        file_as_text = xls_to_csv(file=file)
+    elif "pdf" in extention:
+        file_as_text = pdf_to_text(file=file)
+    elif "txt" in extention:
+        file_as_text = txt_to_text(file=file)
+    elif "xml" in extention:
+        file_as_text = xml_to_text(file=file)
+    elif "jpg" in extention or "png" in extention or "jpeg" in extention or "svg" in extention or "webp" in extention :
+        file_as_text = image_to_text(file=file)
+    else:
+        file_as_text = f"🐛 : Not a supported type of file : { extention } "
 
+    return file_as_text
 
 def csv_to_text(file):
 
@@ -39,6 +57,7 @@ def pdf_to_text(file):
     for page in pdfR.pages:
         text_of_pdf += page.extract_text() + "\n"
 
+    # alternative code with fitz  : 
     # return text_of_pdf
     # import fitz
     # doc = fitz.open("pdf", file)
@@ -46,28 +65,6 @@ def pdf_to_text(file):
     #     text_of_pdf += page.get_text() + "\n"
 
     return text_of_pdf
-
-def file_to_text(file):
-
-    extention = file.name.split('.')[-1]
-    file_as_text = ""
-
-    if "csv" in extention  :
-        file_as_text = csv_to_text(file=file)
-    elif "xlsx" in extention or "xls" in extention:
-        file_as_text = xls_to_csv(file=file)
-    elif "pdf" in extention:
-        file_as_text = pdf_to_text(file=file)
-    elif "txt" in extention:
-        file_as_text = txt_to_text(file=file)
-    elif "xml" in extention:
-        file_as_text = xml_to_text(file=file)
-    elif "jpg" in extention or "png" in extention or "jpeg" in extention or "svg" in extention or "webp" in extention :
-        file_as_text = image_to_text(file=file)
-    else:
-        file_as_text = f"🐛 : Not a supported type of file : { extention } "
-
-    return file_as_text
 
 def files_to_text(files):
 
@@ -103,10 +100,15 @@ def xls_to_csv(file):
 
 def image_to_text(file):
 
-    contents = file.read()
-    pil_image = Image.open(io.BytesIO(contents))
+    # alternative code with tesseract ocr  : 
+    # contents = file.read()
+    # pil_image = Image.open(io.BytesIO(contents))
     # # Simple image to string
     # text_of_image = pytesseract.image_to_string(pil_image)
+
+    contents = file.read()
+    pil_image = Image.open(io.BytesIO(contents))
+
     reader = ocr.Reader(["en"], model_storage_directory=".")
     result = reader.readtext(
         np.array(pil_image)
@@ -116,5 +118,3 @@ def image_to_text(file):
         text_of_image += text[1] + "\n "
 
     return text_of_image
-
-    # return "🐛 : The cloud provider does not support parsing of images"

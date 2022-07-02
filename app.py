@@ -3,10 +3,7 @@ import json
 import io
 import streamlit as st
 # import pytesseract
-# import openpyxl
 from functions import *
-
-
 
 # Config :
 # To launch : streamlit run app.py
