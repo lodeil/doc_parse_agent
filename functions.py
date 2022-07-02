@@ -28,10 +28,9 @@ def file_to_text(file):
         file_as_text = xml_to_text(file=file)
     elif "jpg" in extention or  "jpeg" in extention :
         file_as_text = image_to_text(file=file)
-    elif "svg" in extention or "png" in extention or "webp" in extention :
+    # elif "svg" in extention or "png" in extention or "webp" in extention :
         # only for tesseract ocr
         # file_as_text = image_to_text(file=file)
-        pass
     else:
         file_as_text = f"🐛 : Not a supported type of file : { extention } "
 
