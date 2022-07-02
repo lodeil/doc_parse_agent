@@ -53,8 +53,8 @@ def file_to_text(file):
         file_as_text = txt_to_text(file=file)
     elif "xml" in extention:
         file_as_text = xml_to_text(file=file)
-    elif "jpg" in extention or "png" in extention or "jpeg" in extention or "svg" in extention or "webp" in extention :
-        file_as_text = image_to_text(file=file)
+    # elif "jpg" in extention or "png" in extention or "jpeg" in extention or "svg" in extention or "webp" in extention :
+    #     file_as_text = image_to_text(file=file)
     else:
         file_as_text = f"🐛 : Not a supported type of file : { extention } "
 
@@ -91,3 +91,14 @@ def xls_to_csv(file):
             text_of_xls += "\n"
         
     return text_of_xls
+
+def image_to_text(file):
+
+    # contents = file.read()
+    # pil_image = Image.open(io.BytesIO(contents))
+    # # Simple image to string
+    # text_of_image = pytesseract.image_to_string(pil_image)
+
+    # return text_of_image
+
+    return "🐛 : The cloud provider does not support parsing of images"

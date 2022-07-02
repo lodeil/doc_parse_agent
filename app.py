@@ -1,6 +1,3 @@
-#!/bin/sh tesseract --version && tesseract --list-langs
-
-
 import os
 import json
 import io
@@ -16,15 +13,6 @@ from functions import *
 # To launch : streamlit run app.py
 # If you don't have tesseract executable in your PATH, include the following:
 # pytesseract.pytesseract.tesseract_cmd = r'D:\\softwares\\Tesseract-OCR\\tesseract.exe'
-
-def image_to_text(file):
-
-    contents = file.read()
-    pil_image = Image.open(io.BytesIO(contents))
-    # Simple image to string
-    text_of_image = pytesseract.image_to_string(pil_image)
-
-    return text_of_image
 
 st.set_page_config(
     page_title="Documents to text",
