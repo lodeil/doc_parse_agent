@@ -10,7 +10,7 @@ from functions import *
 # Config :
 # To launch : streamlit run app.py
 # If you don't have tesseract executable in your PATH, include ytesseract.pytesseract.tesseract_cmd
-
+pytesseract.pytesseract.tesseract_cmd = r"C:\Program Files\Tesseract-OCR\tesseract.exe"
 
 st.set_page_config(
     page_title="Documents to text",
