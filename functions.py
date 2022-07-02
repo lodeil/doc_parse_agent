@@ -3,12 +3,12 @@ import json
 import io
 import PyPDF2
 from openpyxl import load_workbook
-import pytesseract
+# import pytesseract
 # import pandas as pd
 # import streamlit as st
-# import numpy as np
+import numpy as np
 from xml.etree import ElementTree
-
+import easyocr as ocr  # OCR
 from PIL import Image
 
 
@@ -105,8 +105,15 @@ def image_to_text(file):
 
     contents = file.read()
     pil_image = Image.open(io.BytesIO(contents))
-    # Simple image to string
-    text_of_image = pytesseract.image_to_string(pil_image)
+    # # Simple image to string
+    # text_of_image = pytesseract.image_to_string(pil_image)
+    reader = ocr.Reader(["en"], model_storage_directory=".")
+    result = reader.readtext(
+        np.array(pil_image)
+    )
+    text_of_image = " "
+    for text in result:
+        text_of_image += text[1] + "\n "
 
     return text_of_image
 
