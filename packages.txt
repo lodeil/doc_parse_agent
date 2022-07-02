@@ -1,2 +1,3 @@
+libtesseract-dev
 python3-pil
 tesseract-ocr
