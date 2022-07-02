@@ -12,7 +12,7 @@ from functions import *
 # Config :
 # To launch : streamlit run app.py
 # If you don't have tesseract executable in your PATH, include the following:
-pytesseract.pytesseract.tesseract_cmd = r'D:\\softwares\\Tesseract-OCR\\tesseract.exe'
+# pytesseract.pytesseract.tesseract_cmd = r'D:\\softwares\\Tesseract-OCR\\tesseract.exe'
 
 def image_to_text(file):
 
