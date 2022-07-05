@@ -12,7 +12,7 @@ from functions import *
 
 st.set_page_config(
     page_title="Documents to text",
-    page_icon="🌠",
+    page_icon="📖",
 )
 st.header("")
 st.title("🌳 Parse your 📃 documents 📃. 🌳")
